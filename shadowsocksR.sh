@@ -5,7 +5,7 @@ clear
 echo
 echo "#############################################################"
 echo "# Automatic installation of ShadowsocksR                    #"
-echo "# By Han              20211030  14:20                       #"
+echo "# By Han              20211030  14:28                       #"
 echo "#############################################################"
 echo
 
@@ -348,7 +348,7 @@ install(){
         echo -e "Your obfs             : \033[41;37m ${shadowsockobfs} \033[0m"
         echo -e "Your Encryption Method: \033[41;37m ${shadowsockscipher} \033[0m"
         echo
-        echo "BY Han"
+        echo "BY Han88"
         echo "Enjoy!"
         echo        
         echo
