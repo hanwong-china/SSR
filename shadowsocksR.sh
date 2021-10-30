@@ -25,11 +25,7 @@ auth_aes128_md5
 obfs=(
 tls1.2_ticket_auth
 )
-# Color
-red='\033[0;31m'
-green='\033[0;32m'
-yellow='\033[0;33m'
-plain='\033[0m'
+
 
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] This script must be run as root!" && exit 1
@@ -144,26 +140,20 @@ pre_install(){
         exit 1
     fi
     # Set ShadowsocksR config password
-    echo "Please enter password for ShadowsocksR:"
+    echo "Password setting: Default"
     shadowsockspwd="wenwen"
-    echo "---------------------------"
     echo "password = ${shadowsockspwd}"
-    echo "---------------------------"
-    echo
     # Set ShadowsocksR config port
     while true
     do
     dport=$(shuf -i 9000-19999 -n 1)
-    echo -e "Please enter a port for ShadowsocksR [1-65535]"
+    echo -e "Port setting[1-65535]: Random"
 
     shadowsocksport=${dport}
     expr ${shadowsocksport} + 1 &>/dev/null
     if [ $? -eq 0 ]; then
         if [ ${shadowsocksport} -ge 1 ] && [ ${shadowsocksport} -le 65535 ] && [ ${shadowsocksport:0:1} != 0 ]; then
-            echo "---------------------------"
             echo "port = ${shadowsocksport}"
-            echo "---------------------------"
-            echo
             break
         fi
     fi
@@ -173,23 +163,18 @@ pre_install(){
     # Set shadowsocksR config stream ciphers
     while true
     do
-    echo -e "Please select stream cipher for ShadowsocksR:"
+    echo -e "Cipher setting: Default"
     shadowsockscipher=${ciphers[0]}
-    echo "---------------------------"
     echo "cipher = ${shadowsockscipher}"
-    echo "---------------------------"
-    echo
     break
     done
 
     # Set shadowsocksR config protocol
     while true
     do
-    echo -e "Please select protocol for ShadowsocksR:"
+    echo -e "Protocol setting: Default"
     shadowsockprotocol=${protocols[0]}
-    echo "---------------------------"
     echo "protocol = ${shadowsockprotocol}"
-    echo "---------------------------"
     echo
     break
     done
@@ -197,19 +182,12 @@ pre_install(){
     # Set shadowsocksR config obfs
     while true
     do
-    echo -e "Please select obfs for ShadowsocksR:"
+    echo -e "Obfs setting: Default"
     shadowsockobfs=${obfs[0]}
-    echo
-    echo "---------------------------"
     echo "obfs = ${shadowsockobfs}"
-    echo "---------------------------"
-    echo
     break
     done
-
-    echo
-    echo "Press any key to start...or Press Ctrl+C to cancel"
-    char=`get_char`
+    echo "Start the installation"
     # Install necessary dependencies
     if check_sys packageManager yum; then
         yum install -y python python-devel python-setuptools openssl openssl-devel curl wget unzip gcc automake autoconf make libtool
@@ -339,26 +317,26 @@ install(){
 
         clear
         echo
-        echo -e "Congratulations, ShadowsocksR server install completed!"
-        echo -e "Your Server IP        : \033[41;37m $(get_ip) \033[0m"
-        echo -e "Your Server Port      : \033[41;37m ${shadowsocksport} \033[0m"
-        echo -e "Your Password         : \033[41;37m ${shadowsockspwd} \033[0m"
-        echo -e "Your Protocol         : \033[41;37m ${shadowsockprotocol} \033[0m"
-        echo -e "Your obfs             : \033[41;37m ${shadowsockobfs} \033[0m"
-        echo -e "Your Encryption Method: \033[41;37m ${shadowsockscipher} \033[0m"
+        echo
+        echo -e "install success!"
+        echo
+        echo
+        echo -e "IP         : $(get_ip)"
+        echo -e "Port       : ${shadowsocksport}"
+        echo -e "Password   : ${shadowsockspwd}"
+        echo -e "Protocol   : ${shadowsockprotocol}"
+        echo -e "obfs       : ${shadowsockobfs}"
+        echo -e "Encryption : ${shadowsockscipher}"
+        echo
+        echo 'Quick links: '
+        echo
+        echo -e "${qr_code} "
+        echo
         echo
         echo "BY Han"
         echo "Enjoy!"
         echo
 
-
-        echo
-        echo 'Your QR Code: (For ShadowsocksR Windows, Android clients only)'
-        echo -e "${green} ${qr_code} ${plain}"
-        echo -n "${qr_code}" | qrencode -s8 -o "${cur_dir}"/shadowsocks_r_qr.png
-        echo 'Your QR Code has been saved as a PNG file path:'
-        echo -e "${green} ${cur_dir}/shadowsocks_r_qr.png ${plain}"
-      
     else
         echo "ShadowsocksR install failed"
         install_cleanup
