@@ -331,20 +331,6 @@ install(){
             update-rc.d -f shadowsocks defaults
         fi
         /etc/init.d/shadowsocks start
-
-        clear
-        echo
-        echo -e "Congratulations, ShadowsocksR server install completed!"
-        echo -e "Your Server IP        : \033[41;37m $(get_ip) \033[0m"
-        echo -e "Your Server Port      : \033[41;37m ${shadowsocksport} \033[0m"
-        echo -e "Your Password         : \033[41;37m ${shadowsockspwd} \033[0m"
-        echo -e "Your Protocol         : \033[41;37m ${shadowsockprotocol} \033[0m"
-        echo -e "Your obfs             : \033[41;37m ${shadowsockobfs} \033[0m"
-        echo -e "Your Encryption Method: \033[41;37m ${shadowsockscipher} \033[0m"
-        echo
-        echo "BY Han"
-        echo "Enjoy!"
-        echo
       if [ "$(command -v qrencode)" ]; then
         local tmp1
         tmp1=$(echo -n "${shadowsockspwd}" | base64 -w0 | sed 's/=//g;s/\//_/g;s/+/-/g')
@@ -358,6 +344,20 @@ install(){
         echo 'Your QR Code has been saved as a PNG file path:'
         echo -e "${green} ${cur_dir}/shadowsocks_r_qr.png ${plain}"
       fi
+        clear
+        echo
+        echo -e "Congratulations, ShadowsocksR server install completed!"
+        echo -e "Your Server IP        : \033[41;37m $(get_ip) \033[0m"
+        echo -e "Your Server Port      : \033[41;37m ${shadowsocksport} \033[0m"
+        echo -e "Your Password         : \033[41;37m ${shadowsockspwd} \033[0m"
+        echo -e "Your Protocol         : \033[41;37m ${shadowsockprotocol} \033[0m"
+        echo -e "Your obfs             : \033[41;37m ${shadowsockobfs} \033[0m"
+        echo -e "Your Encryption Method: \033[41;37m ${shadowsockscipher} \033[0m"
+        echo
+        echo "BY Han"
+        echo "Enjoy!"
+        echo
+
     else
         echo "ShadowsocksR install failed"
         install_cleanup
