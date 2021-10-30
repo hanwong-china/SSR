@@ -331,18 +331,12 @@ install(){
             update-rc.d -f shadowsocks defaults
         fi
         /etc/init.d/shadowsocks start
-      if [ "$(command -v qrencode)" ]; then
         local tmp1
         tmp1=$(echo -n "${shadowsockspwd}" | base64 -w0 | sed 's/=//g;s/\//_/g;s/+/-/g')
         local tmp2
         tmp2=$(echo -n "$(get_ip):${shadowsocksport}:${shadowsockprotocol}:${shadowsockscipher}:${shadowsockobfs}:${tmp1}/?obfsparam=" | base64 -w0)
         local qr_code="ssr://${tmp2}"
-        echo
-        echo 'Your QR Code: (For ShadowsocksR Windows, Android clients only)'
-        echo -e "${green} ${qr_code} ${plain}"
-        echo -n "${qr_code}" | qrencode -s8 -o "${cur_dir}"/shadowsocks_r_qr.png
-        echo 'Your QR Code has been saved as a PNG file path:'
-        echo -e "${green} ${cur_dir}/shadowsocks_r_qr.png ${plain}"
+
       fi
         clear
         echo
@@ -356,7 +350,13 @@ install(){
         echo
         echo "BY Han"
         echo "Enjoy!"
+        echo        
         echo
+        echo 'Your QR Code: (For ShadowsocksR Windows, Android clients only)'
+        echo -e "${green} ${qr_code} ${plain}"
+        echo -n "${qr_code}" | qrencode -s8 -o "${cur_dir}"/shadowsocks_r_qr.png
+        echo 'Your QR Code has been saved as a PNG file path:'
+        echo -e "${green} ${cur_dir}/shadowsocks_r_qr.png ${plain}"
 
     else
         echo "ShadowsocksR install failed"
