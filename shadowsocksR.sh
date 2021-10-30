@@ -5,7 +5,7 @@ clear
 echo
 echo "#############################################################"
 echo "# Automatic installation of ShadowsocksR                    #"
-echo "# By Han              20211030  14:28                       #"
+echo "# By Han              20211030  14:20                       #"
 echo "#############################################################"
 echo
 
@@ -337,7 +337,6 @@ install(){
         tmp2=$(echo -n "$(get_ip):${shadowsocksport}:${shadowsockprotocol}:${shadowsockscipher}:${shadowsockobfs}:${tmp1}/?obfsparam=" | base64 -w0)
         local qr_code="ssr://${tmp2}"
 
-      fi
         clear
         echo
         echo -e "Congratulations, ShadowsocksR server install completed!"
@@ -348,16 +347,18 @@ install(){
         echo -e "Your obfs             : \033[41;37m ${shadowsockobfs} \033[0m"
         echo -e "Your Encryption Method: \033[41;37m ${shadowsockscipher} \033[0m"
         echo
-        echo "BY Han88"
+        echo "BY Han"
         echo "Enjoy!"
-        echo        
+        echo
+
+
         echo
         echo 'Your QR Code: (For ShadowsocksR Windows, Android clients only)'
         echo -e "${green} ${qr_code} ${plain}"
         echo -n "${qr_code}" | qrencode -s8 -o "${cur_dir}"/shadowsocks_r_qr.png
         echo 'Your QR Code has been saved as a PNG file path:'
         echo -e "${green} ${cur_dir}/shadowsocks_r_qr.png ${plain}"
-
+      
     else
         echo "ShadowsocksR install failed"
         install_cleanup
